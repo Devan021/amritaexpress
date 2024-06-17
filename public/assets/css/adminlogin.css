@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+.main-login {
+    width: 100vw; /* vw: percentage of the viewport width */
+    height: 100vh;
+    background:  #a12c2f; /* White background */
+    display: flex;
+    justify-content: center; /* center on x-axis */
+    align-items: center;
+}
+
+.left-login {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* center on x-axis */ 
+    align-items: center;
+    flex-direction: column;
+}
+
+.left-login > h1 { /* All h1 within the div left-login */
+    font-size: 3vw;
+    color: white
+    ; /* Black text */
+}
+
+.left-login-image {
+    width: 35vw;
+}
+
+.loader {
+    width: 120px;
+    height: 150px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(#ddd 50%, #bbb 51%),
+      linear-gradient(#ddd, #ddd), linear-gradient(#ddd, #ddd),
+      radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%),
+      radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%),
+      radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%);
+    background-position: 0 20px, 45px 0, 8px 6px, 55px 3px, 75px 3px, 95px 3px;
+    background-size: 100% 4px, 1px 23px, 30px 8px, 15px 15px, 15px 15px, 15px 15px;
+    position: relative;
+    border-radius: 6%;
+    animation: shake 3s ease-in-out infinite;
+    transform-origin: 60px 180px;
+}
+
+.loader:before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 100%;
+    width: 7px;
+    height: 5px;
+    background: #aaa;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 102px 0 #aaa;
+}
+
+.loader:after {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 95px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 20px;
+    background-color: #bbdefb;
+    background-image: linear-gradient( to right, #0004 0%, #0004 49%, #0000 50%, #0000 100% ),
+      linear-gradient(135deg, #64b5f6 50%, #607d8b 51%);
+    background-size: 30px 100%, 90px 80px;
+    border-radius: 50%;
+    background-repeat: repeat, no-repeat;
+    background-position: 0 0;
+    box-sizing: border-box;
+    border: 10px solid #DDD;
+    box-shadow: 0 0 0 4px #999 inset, 0 0 6px 6px #0004 inset;
+    animation: spin 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    50% {
+        transform: rotate(360deg)
+    }
+
+    75% {
+        transform: rotate(750deg)
+    }
+
+    100% {
+        transform: rotate(1800deg)
+    }
+}
+
+@keyframes shake {
+    65%, 80%, 88%, 96% {
+        transform: rotate(0.5deg)
+    }
+
+    50%, 75%, 84%, 92% {
+        transform: rotate(-0.5deg)
+    }
+
+    0%, 50%, 100% {
+        transform: rotate(0)
+    }
+}
+
+.right-login {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* center on x-axis */
+    align-items: center;
+}
+
+.card-login {
+    width: 60%; /* 60% of 50vh (because it is within the div left-login) */
+    display: flex;
+    justify-content: center; /* center on x-axis */
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 35px; /* if 2 values, the first is for y-axis and the second is for x-axis */
+    background: #ffffff; /* White background */
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056; /* 1st value is for x-axis, 2nd value is for y-axis, 3rd value is blur, 4th value is color */
+}
+
+.card-login > h1 { /* select all h1 within the div .card-login */
+    color: black; /* Carmine red text */
+    font-weight: 800;
+    margin: 0;
+}
+
+.textfield {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+.textfield > input {
+    width: 100%;
+    border: 1px solid #960018; /* Carmine red border */
+    border-radius: 10px;
+    padding: 15px;
+    background: #f5f5f5; /* Light grey input field */
+    color: #000000; /* Black text */
+    font-size: 12pt;
+    box-shadow: 0px 10px 40px #00000056;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.textfield > label {
+    color: #000000; /* Black text */
+    margin-bottom: 10px;
+}
+
+.textfield > input::placeholder {
+    color: #b8b8b8; /* Light grey placeholder text */
+}
+
+.btn-login {
+    width: 100%;
+    padding: 16px 0px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff; /* White text */
+    background:  #a12c2f; /* Black background */
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #96001852; /* Carmine red shadow */
+}
+
+.btn-cadastre-se {
+    font-family: 'Noto Sans', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    color: black; /* Black text */
+}
+
+.span-cadastre-se {
+    color: black; /* Black text */
+}
+
+@media only screen and (max-width: 950px) {
+    .card-login {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main-login {
+        flex-direction: column;
+        padding-bottom: 30px;
+    }
+
+    .left-login > h1 {
+        display: none;
+    }
+
+    .left-login {
+        width: 100%;
+        height: auto;
+    }
+
+    .right-login {
+        width: 100%;
+        height: auto;
+    }
+
+    .left-login-image {
+        width: 50vw;
+    }
+
+    .card-login {
+        width: 90%;
+    }
+
+    .btn-plus {
+        width: 100%;
+    }
+}

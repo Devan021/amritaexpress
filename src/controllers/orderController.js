@@ -4,13 +4,14 @@ const prisma = new PrismaClient();
 exports.createOrder = async (req, res) => {
     const { type, details } = req.body;
     const userId = req.session.user.id;
-
+    console.log(userId, type, details)
     try {
         const order = await prisma.order.create({
             data: { userId, type, details },
         });
         res.status(201).json({ message: 'Order created successfully', order });
     } catch (error) {
+        console.error(error)
         res.status(400).json({ error: 'Order creation failed' });
     }
 };

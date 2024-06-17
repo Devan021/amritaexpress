@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/studentdashboard.css">
+</head>
+<body>
+<header>
+    <h1>Student Dashboard</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/schedule-cleaning">Cleaning Service</a></li>
+        <li><a href="/schedule-laundryle">Laundry Service</a></li>
+        <li><a href="/feedback">Feedback</a></li>
+    </ul>
+</nav>
+<main>
+    <section>
+        <center>><h2>Welcome to the Student Dashboard</h2></center>
+        <center><p>Use the buttons below to navigate to different services.</p></center>
+        <div class="buttons">
+            <button id="cleaningButton">Cleaning Service</button>
+            <button id="laundryButton">Laundry Service</button>
+
+        </div>
+    </section>
+    <section>
+        <h2>Announcements</h2>
+        <ul class="announcements">
+            <li>New Laundry Slot is available.</li>
+            <li>Chief Warden Inspection next week.</li>
+            <li>Slot 2  Please take back your clothes.</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Upcoming Events</h2>
+        <ul class="events">
+            <li>June 20, 2024: Laundry Slot Completed.</li>
+            <li>June 25, 2024: Laundry Slot Completed.</li>
+            <li>July 1, 2024:  Laundry Slot Completed.</li>
+        </ul>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Hostel Service System. All rights reserved.</p>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Function to navigate to the cleaning service page
+        document.getElementById('cleaningButton').addEventListener('click', () => {
+            window.location.href = 'schedule-cleaning';
+        });
+
+        // Function to navigate to the laundry service page
+        document.getElementById('laundryButton').addEventListener('click', () => {
+            window.location.href = '/schedule-laundry';
+        });
+
+        // Function to navigate to the feedback page
+        document.getElementById('feedbackButton').addEventListener('click', () => {
+            window.location.href = '/components/contactadmin.html';
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/studentservice.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .contact-section {
+            margin-bottom: 50px; /* Add padding between submit button and footer */
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <h1><i class="fas fa-home"></i> AvasSeva</h1>
+    <ul>
+        <li><a href="dashboard.html"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="./cleaningpage.html"><i class="fas fa-broom"></i> Cleaning</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <h1 style="color: black;">Laundry Service</h1>
+    <label for="gender">Select Gender:</label>
+    <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+
+    <label for="hostel">Select Hostel:</label>
+    <select id="hostel">
+    </select>
+
+    <label for="clothes">Select Clothes:</label>
+    <select id="clothes">
+        <option value="shirt" data-price="50" data-icon="fas fa-tshirt">Shirt - ₹50</option>
+        <option value="pant" data-price="70" data-icon="fas fa-socks">Pant - ₹70</option>
+        <option value="tshirt" data-price="40" data-icon="fas fa-tshirt">T-Shirt - ₹40</option>
+        <option value="jeans" data-price="80" data-icon="fas fa-socks">Jeans - ₹80</option>
+        <option value="jacket" data-price="100" data-icon="fas fa-socks">Jacket - ₹100</option>
+    </select>
+    <button id="add-cloth">Add Cloth</button>
+
+    <label>
+        <input type="checkbox" id="ironing"> Ironing Service
+    </label>
+
+    <div class="clothes-list">
+        <h2>Selected Clothes</h2>
+        <ul id="clothes-list">
+        </ul>
+    </div>
+
+    <div class="total">Total: ₹<span id="total-price">0</span></div>
+
+    <button id="pay-btn">Pay</button>
+</div>
+
+<div class="services">
+    <div class="service">
+        <h3>Laundry</h3>
+        <p>Professional laundry services for all types of clothes.</p>
+    </div>
+    <div class="service">
+        <h3>Cleaning</h3>
+        <p>Top-notch cleaning services to keep your room spotless.</p>
+    </div>
+    <div class="service">
+        <h3>Ironing</h3>
+        <p>Expert ironing services for a crisp and neat look.</p>
+    </div>
+</div>
+
+<div class="about-section" id="about">
+    <h2>About AmritaSeva</h2>
+    <p>AmritaSeva provides comprehensive laundry and cleaning services to students. Our services are designed to help students focus on their studies while we take care of their laundry and cleaning needs. We offer affordable, reliable, and high-quality services tailored to meet the unique requirements of hostel living.</p>
+</div>
+
+<div class="contact-section" id="contact">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="footer">
+    &copy; 2024 AmritaSeva. All rights reserved.
+</div>
+
+<!-- Modal -->
+<div id="feedbackModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Your feedback has been submitted!</p>
+    </div>
+</div>
+
+<script>
+    document.getElementById("submit").addEventListener("click", function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(document.getElementById("form"));
+        const details = {
+            totalPrice: 0,
+            components: []
+        };
+
+        if (formData.get("ironing") === "on") {
+            details.components.push({ name: "Ironing", isIroning: true });
+            details.totalPrice += 5;
+        }
+
+        fetch('/api/orders/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ type: "LAUNDRY", details })
+        })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Order created successfully");
+                    } else {
+                        console.error("Order creation failed");
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+    });
+</script>
+</body>
+</html>
