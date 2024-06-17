@@ -1,0 +1,69 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  password     String
+  name         String
+  roomNumber   String
+  role         Role      @default(USER)
+  orders       Order[]
+  complaints   Complaint[]
+  feedbacks    Feedback[]
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  type        OrderType
+  status      OrderStatus @default(PENDING)
+  details     Json
+  createdAt   DateTime  @default(now())
+}
+
+enum OrderType {
+  CLEANING
+  LAUNDRY
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+model Complaint {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  description String
+  status      ComplaintStatus @default(PENDING)
+  createdAt   DateTime  @default(now())
+}
+
+enum ComplaintStatus {
+  PENDING
+  ADDRESSED
+}
+
+model Feedback {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  content     String
+  rating      Int
+  createdAt   DateTime  @default(now())
+}
