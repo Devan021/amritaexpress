@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/loginpage.css">
+    <title>Register</title>
+</head>
+<body>
+<div class="main-login">
+    <div class="left-login">
+        <h1>Services on your Way!<br></h1>
+        <img src="/assets/images/asds.svg" class="left-login-image" alt="Register Illustration" style="width: 300px;">
+    </div>
+    <div class="right-login">
+        <form action="/register" class="card-login" method="post">
+            <h1>Student</h1>
+            {{#if error}}
+                <div class="alert alert-danger" style="color: #bb2d3b">
+                    {{ error }}
+                </div>
+            {{/if}}
+            <div class="textfield">
+                <label for="username">Email</label>
+                <input type="text" id="email" name="email" placeholder="mail@am.students.amrita.edu" required>
+            </div>
+            <div class="textfield">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Student Name" required>
+            </div>
+            <div class="textfield">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </div>
+            <div class="textfield">
+                <label for="rollno">Roll Number</label>
+                <input type="text" id="rollno" name="rollno" placeholder="AM.EN.U4CSE21XXX" required>
+            </div>
+            <div class="textfield">
+                <label for="hostel">Hostel Name</label>
+                <select id="hostel" name="hostel" required style="width: 100%; border: none; border-radius: 10px; padding: 15px; background: #514869; color: #f0ffffde; font-size: 12pt; box-shadow: 0px 10px 40px #00000056; outline: none; box-sizing: border-box;">
+                    <option value="">Select Hostel</option>
+                    <option value="Ashokam">Ashokam</option>
+                    <option value="Shivam">Shivam</option>
+                    <option value="Kailasam">Kailasam</option>
+                    <option value="Anugraham">Anugraham</option>
+                    <option value="Sanathanam">Sanathanam</option>
+                    <option value="Prasadham">Prasadham</option>
+                    <option value="Saraswathy">Saraswathy</option>
+                    <option value="Kavery">Kavery</option>
+                    <option value="Ganga">Ganga</option>
+                    <option value="Yamuna">Yamuna</option>
+                    <option value="Nila">Nila</option>
+                </select>
+            </div>
+            <div class="textfield">
+                <label for="room">Room Number</label>
+                <input type="text" id="room" name="room" placeholder="Room Number" required>
+            </div>
+            <button type="submit" class="btn-login">Register</button>
+            <div class="btn-plus">
+                <a class="btn-logn" href="/login">Already have an account? <span class="span-cadastre-se">Login</span></a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.card-login');
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+            const rollno = document.getElementById('rollno').value;
+            const hostel = document.getElementById('hostel').value;
+            const room = document.getElementById('room').value;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, name, password, rollno, hostel, room })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('User registered successfully');
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('User registration failed');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('User registration failed');
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AmritaPay</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+    <link rel="stylesheet" href="/assets/css/checkout.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+            animation: modal-show 0.4s ease-out;
+        }
+        .modal-content h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        .modal-content p {
+            margin-bottom: 20px;
+        }
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .modal-content button:hover {
+            background-color: #45a049;
+        }
+
+        /* Animation for modal */
+        @keyframes modal-show {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+
+        /* Transaction loading animation */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .loader.green {
+            border-top-color: #00ec08; /* Change border color to green */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="payment">
+        <div class="payment-logo">
+            <p>p</p>
+        </div>
+
+        <h2>AmritaPay</h2>
+        <div class="form">
+            <div class="card space icon-relative">
+                <label class="label">Card holder:</label>
+                <input type="text" class="input" placeholder="Your Name">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="card space icon-relative">
+                <label class="label">Card number:</label>
+                <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="1234 5678 9101">
+                <i class="far fa-credit-card"></i>
+            </div>
+            <div class="card-grp space">
+                <div class="card-item icon-relative">
+                    <label class="label">Expiry date:</label>
+                    <input type="text" name="expiry-data" class="input" data-mask="00 / 00"  placeholder="00 / 00">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
+                <div class="card-item icon-relative">
+                    <label class="label">CVC:</label>
+                    <input type="text" class="input" data-mask="000" placeholder="000">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+
+            <div class="btn" onclick="processPayment()">Pay</div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <h2>Thank You</h2>
+        <p>Your service has successfully scheduled.</p>
+        <button onclick="goBack()">Back</button>
+    </div>
+</div>
+
+<!-- Transaction loading animation -->
+<div id="loader" class="loader"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+<script>
+    // Function to display the modal
+    function showModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    // Function to close the modal and go back
+    function goBack() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        window.location.href = "/"; // Redirect to studentservice.html
+    }
+
+    // Function to process payment
+    function processPayment() {
+        var loader = document.getElementById("loader");
+        loader.classList.add("green"); // Add green class to change loader color
+        loader.style.display = "block"; // Display loading animation
+
+        // Simulate payment processing
+        setTimeout(function() {
+            loader.style.display = "none"; // Hide loading animation
+            showModal(); // Show success modal after 5 seconds
+        }, 5000); // 5000 milliseconds = 5 seconds
+    }
+</script>
+
+</body>
+</html>

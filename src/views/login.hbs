@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/loginpage.css">
+    <title>Login</title>
+</head>
+<body>
+<div class="main-login">
+    <div class="left-login">
+        <h1>Services on your Way!<br></h1>
+        <img src="/assets/images/asds.svg" class="left-login-image" alt="Login Illustration" style="width: 300px;">
+    </div>
+    <div class="right-login">
+        <div class="card-login">
+            <h1>Student</h1>
+            <div id="error-message" class="alert alert-danger" style="color: #bb2d3b; display: none;"></div>
+            <div class="textfield">
+                <label for="username">Email</label>
+                <input type="text" id="username" name="username" placeholder="mail@am.students.amrita.edu" required>
+            </div>
+            <div class="textfield">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </div>
+            <button type="submit" class="btn-login" onclick="login(event)">Login</button>
+            <div class="btn-plus">
+                <a class="btn-forgot-password" href="#">Forgot password? <span class="span-cadastre-se"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function login(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: username, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                window.location.href = '/dashboard';
+            } else {
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('error-message').textContent = data.error;
+            }
+        } catch (error) {
+            console.error(error);
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('error-message').textContent = 'An error occurred. Please try again later.';
+        }
+    }
+</script>
+</body>
+</html>

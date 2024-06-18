@@ -13,6 +13,8 @@ model User {
   password     String
   name         String
   roomNumber   String
+  hostel       String
+  rollno       String
   role         Role      @default(USER)
   orders       Order[]
   complaints   Complaint[]
