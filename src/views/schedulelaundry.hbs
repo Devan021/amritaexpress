@@ -145,19 +145,89 @@
 </div>
 
 <script>
-    document.getElementById("submit").addEventListener("click", function(event) {
+    const genderSelect = document.getElementById('gender');
+    const hostelSelect = document.getElementById('hostel');
+    const clothesSelect = document.getElementById('clothes');
+    const addClothBtn = document.getElementById('add-cloth');
+    const clothesList = document.getElementById('clothes-list');
+    const totalPriceEl = document.getElementById('total-price');
+    const ironingCheckbox = document.getElementById('ironing');
+
+    let totalPrice = 0;
+
+    const hostels = {
+        male: ['Ashokam', 'Shivam', 'Pranavam', 'Anugraham', 'Sanadhanam'],
+        female: ['Saraswathy', 'Ganga', 'Yamuna', 'Nila', 'Kavya']
+    };
+
+    const cloths = [];
+    genderSelect.addEventListener('change', updateHostelOptions);
+
+    function updateHostelOptions() {
+        const selectedGender = genderSelect.value;
+        hostelSelect.innerHTML = '';
+        hostels[selectedGender].forEach(hostel => {
+            const option = document.createElement('option');
+            option.value = hostel;
+            option.textContent = hostel;
+            hostelSelect.appendChild(option);
+        });
+    }
+
+    addClothBtn.addEventListener('click', () => {
+        const selectedCloth = clothesSelect.options[clothesSelect.selectedIndex];
+        const clothName = selectedCloth.value;
+        const clothPrice = parseInt(selectedCloth.getAttribute('data-price'), 10);
+        const clothIcon = selectedCloth.getAttribute('data-icon');
+
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<i class="${clothIcon}"></i> ${clothName} - ₹${clothPrice} <button onclick="removeCloth(this, ${clothPrice})">Remove</button>`;
+        clothesList.appendChild(listItem);
+
+        totalPrice += clothPrice;
+        if (ironingCheckbox.checked)
+            totalPrice += 5;
+
+        updateTotalPrice();
+
+        cloths.push({ name: clothName, isIroning: ironingCheckbox.checked });
+    });
+
+    function removeCloth(button, price) {
+        button.parentElement.remove();
+        totalPrice -= price;
+        updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+        totalPriceEl.innerText = totalPrice.toFixed(2);
+    }
+
+    updateHostelOptions();
+
+    // Modal Script
+    const modal = document.getElementById("feedbackModal");
+    const span = document.getElementsByClassName("close")[0];
+
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault();
+        modal.style.display = "block";
+    });
 
-        const formData = new FormData(document.getElementById("form"));
-        const details = {
-            totalPrice: 0,
-            components: []
-        };
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
 
-        if (formData.get("ironing") === "on") {
-            details.components.push({ name: "Ironing", isIroning: true });
-            details.totalPrice += 5;
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
+    }
+    document.getElementById('pay-btn').addEventListener('click', () => {
+        const details = {
+            totalPrice,
+            components: cloths
+        };
 
         fetch('/api/orders/create', {
             method: 'POST',
@@ -168,8 +238,9 @@
         })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data?.order?.id) {
                         console.log("Order created successfully");
+                        window.location.href = '/payment?order_id=' + data.order.id + '&type=LAUNDRY';
                     } else {
                         console.error("Order creation failed");
                     }

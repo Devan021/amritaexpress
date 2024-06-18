@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Welcome', message: 'This is the index page' });
+    res.render('index', { title: 'Welcome', message: 'This is the index page', user: req?.session?.user });
 });
 
 router.get('/login', (req, res) => {
