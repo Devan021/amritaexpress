@@ -27,9 +27,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .content {
-            display: none;
-        }
         .footer {
             background-color: #f1f1f1;
             text-align: center;
@@ -45,7 +42,6 @@
     </style>
 </head>
 <body>
-
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Hostel Service Admin</a>
@@ -58,13 +54,7 @@
                 <a class="nav-link" href="#">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Settings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" href="/logout">Logout</a>
             </li>
         </ul>
     </div>
@@ -79,13 +69,73 @@
     <p>Welcome to the admin dashboard. Here you can manage cleaning and laundry orders.</p>
     <div class="row">
         <div class="col-md-6">
-            <button class="btn btn-primary btn-block" onclick="showOrders('cleaning')">Cleaning Orders</button>
+            <button class="btn btn-secondary btn-block" onclick="showOrders('cleaning')">Cleaning Orders</button>
         </div>
         <div class="col-md-6">
             <button class="btn btn-secondary btn-block" onclick="showOrders('laundry')">Laundry Orders</button>
         </div>
     </div>
-    <div id="orders" class="table-container mt-4"></div>
+    <div id="cleaning-orders" class="table-container mt-4">
+        <div>
+            <h3>Cleaning Orders</h3>
+            <p>Manage cleaning orders here.</p>
+        </div>
+        <table class="table table-hover border">
+            <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Student Details</th>
+                <th scope="col">Hostel</th>
+                <th scope="col">Room No:</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each cleaningOrders}}
+                <tr>
+                    {{ log this.details }}
+                    <th scope="row">{{@index}}</th>
+                    <td>{{this.user.name}} ({{this.user.rollno}})</td>
+                    <td>{{this.details.hostel}}</td>
+                    <td>{{details.roomNo}}</td>
+                    <td>{{details.cleaningDate}}</td>
+                    <td>{{details.timeSlot}}</td>
+                    <td>{{status}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div id="laundry-orders" class="table-container mt-4">
+        <div>
+            <h3>Laundry Orders</h3>
+            <p>Manage laundry orders here.</p>
+        </div>
+        <table class="table table-hover border">
+            <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Student Details</th>
+                <th scope="col">Total price</th>
+                <th scope="col">Items</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each laundryOrders}}
+                <tr>
+                    <th scope="row">{{@index}}</th>
+                    <td>{{user.name}} ({{user.rollno}})</td>
+                    <td>{{details.totalPrice}}</td>
+                    <td>{{details.components.length}}</td>
+                    <td>{{status}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Footer -->
@@ -94,45 +144,16 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Simulate loading
-        setTimeout(function() {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-        }, 2000);
-    });
-
     function showOrders(type) {
-        let ordersDiv = document.getElementById('orders');
-        ordersDiv.innerHTML = `<h2>${type.charAt(0).toUpperCase() + type.slice(1)} Orders</h2>`;
-        // Fetch and display orders based on type
-        // This is a placeholder. Replace with actual data fetching logic.
-        let orders = [
-            { id: 1, name: 'John Doe', room: '101', status: 'Pending' },
-            { id: 2, name: 'Jane Smith', room: '102', status: 'Completed' },
-            { id: 3, name: 'Sam Wilson', room: '103', status: 'In Progress' }
-        ];
-        let table = `<table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Name</th>
-                                    <th>Room</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-        orders.forEach(order => {
-            table += `<tr>
-                            <td>${order.id}</td>
-                            <td>${order.name}</td>
-                            <td>${order.room}</td>
-                            <td>${order.status}</td>
-                          </tr>`;
-        });
-        table += `</tbody></table>`;
-        ordersDiv.innerHTML += table;
+        if (type === 'cleaning') {
+            document.getElementById('cleaning-orders').style.display = 'block';
+            document.getElementById('laundry-orders').style.display = 'none';
+        } else if (type === 'laundry') {
+            document.getElementById('cleaning-orders').style.display = 'none';
+            document.getElementById('laundry-orders').style.display = 'block';
+        }
     }
+    showOrders('cleaning')
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

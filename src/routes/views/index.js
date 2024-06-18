@@ -18,11 +18,14 @@ router.get('/register', (req, res) => {
     res.render('register', { title: 'Register' });
 });
 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', async (req, res) => {
     if (!req.session.user) return res.redirect('/login');
-    if (req.session.user.role === 'admin')
-        return res.render('adminDashboard', { title: 'Admin Dashboard', user: req.session.user });
-    res.render('dashboard', { title: 'Dashboard', user: req.session.user });
+    if (req.session.user.role === 'ADMIN') {
+        const cleaningOrders = await prisma.order.findMany({ where: { type: 'CLEANING' }, include: { user: true }}).then(orders => orders).catch(err => console.error(err));
+        const laundryOrders = await prisma.order.findMany({ where: { type: 'LAUNDRY' }, include: { user: true }}).then(orders => orders).catch(err => console.error(err));
+        res.render('admindashboard', {title: 'Admin Dashboard', user: req.session.user, cleaningOrders, laundryOrders });
+    } else
+        res.render('dashboard', { title: 'Dashboard', user: req.session.user });
 });
 
 router.get('/schedule-cleaning', (req, res) => {
