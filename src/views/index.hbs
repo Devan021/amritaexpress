@@ -12,14 +12,14 @@
     <title>AvasSeva</title>
 
     
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
     
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/lightbox.css">
+    <link rel="stylesheet" href="./">
+    <link rel="stylesheet" href="/assets/css/templatemo-edu-meeting.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+    <link rel="stylesheet" href="/assets/css/lightbox.css">
 
 
   </head>
@@ -61,7 +61,7 @@
                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                           <li class="scroll-to-section"><a href="#apply">Apply Now</a></li>
                           {{#if user}}
-                            <li class="scroll-to-section"><a href="/dashboard">Dashboard</a></li>
+                            <li><a href="/dashboard">Dashboard</a></li>
                           {{else}}
                             <li><a href="/login">Login</a></li>
                             <li><a href="/register">Register</a></li>
@@ -212,7 +212,7 @@
                   <div class="date">
                     <h6>Service<span>3</span></h6>
                   </div>
-                  <a href="./components/studentlogin.html"><h4>Feedback</h4></a>
+                  <a href="/login/"><h4>Feedback</h4></a>
                   <p>Give your feedback<br></p>
                 </div>
               </div>
@@ -222,7 +222,7 @@
                 <div class="thumb">
                   <div class="price">
                   </div>
-                  <a href="./components/studentlogin.html"><img src="assets/images/complaint.jpeg" alt="alt"></a>
+                  <a href="/login"><img src="assets/images/complaint.jpeg" alt="alt"></a>
                 </div>
                 <div class="down-content">
                   <div class="date">
@@ -249,7 +249,7 @@
                 <h3>APPLY FOR LAUNDRY SERVICE</h3>
                 <p>Launder your precious clothes in no time.</p>
                 <div class="main-button-red">
-                  <div class="main-button-red"><a href="./components/studentlogin.html">Go</a></div>
+                  <div class="main-button-red"><a href="/login">Go</a></div>
               </div>
               </div>
             </div>
@@ -258,7 +258,7 @@
                 <h3>APPLY FOR CLEANING Service</h3>
                 <p>Get your room cleansed up!</p>
                 <div class="main-button-yellow">
-                  <div class="main-button-yellow"><a href="./components/studentlogin.html">Go</a></div>
+                  <div class="main-button-yellow"><a href="/login">Go</a></div>
               </div>
               </div>
             </div>
@@ -524,88 +524,99 @@
   </section>
 
   <section class="contact-us" id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-9 align-self-center">
-          <div class="row">
-            <div class="col-lg-12">
-              <form id="contact" action="./thankpage.html" method="post">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <h2>Give your Feedback</h2>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
-                      <input name="name" type="text" id="name" placeholder="YOUR ROLLNO..." required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 align-self-center">
+        <div class="row">
+          <div class="col-lg-12">
+            <form id="contact" action="/login" method="post" onsubmit="showPopup(event)">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2>Give your Feedback</h2>
+                </div>
+                <div class="col-lg-4">
+                  <fieldset>
+                    <input name="name" type="text" id="name" placeholder="YOUR ROLLNO..." required="">
+                  </fieldset>
+                </div>
+                <div class="col-lg-4">
+                  <fieldset>
                     <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="YOUR AMRITA MAIL.." required="">
                   </fieldset>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
-                      <input name="subject" type="text" id="subject" placeholder="SUBJECT..." required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..." required=""></textarea>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="button">SUBMIT FEEDBACK</button>
-                    </fieldset>
-                  </div>
                 </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="right-info">
-            <ul>
-              <li>
-                <h6></h6>
-                <span>+91 (422) 2685 000</span>
-              </li>
-              <li>
-                <h6>Email Address</h6>
-                <span>amrita@am.amrita.edu</span>
-              </li>
-              <li>
-                <h6>Street Address</h6>
-                <span>Amritapuri Campus - Amritapuri, Clappana P.O</span>
-              </li>
-              <li>
-                <h6>Website URL</h6>
-                <span>amrita.edu</span>
-              </li>
-            </ul>
+                <div class="col-lg-4">
+                  <fieldset>
+                    <input name="subject" type="text" id="subject" placeholder="SUBJECT..." required="">
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <textarea name="message" type="text" class="form-control" id="message" placeholder="YOUR MESSAGE..." required=""></textarea>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="button">SUBMIT FEEDBACK</button>
+                  </fieldset>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
+
+      <div class="col-lg-3">
+        <div class="right-info">
+          <ul>
+            <li>
+              <h6></h6>
+              <span>+91 (422) 2685 000</span>
+            </li>
+            <li>
+              <h6>Email Address</h6>
+              <span>amrita@am.amrita.edu</span>
+            </li>
+            <li>
+              <h6>Street Address</h6>
+              <span>Amritapuri Campus - Amritapuri, Clappana P.O</span>
+            </li>
+            <li>
+              <h6>Website URL</h6>
+              <span>amrita.edu</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="footer">
-      <p>Copyright © 2024 AmritaSeva Co, Ltd. All Rights Reserved. 
-          <br>Design: <a href="https://www.amrita.edu" target="_parent" title="amrita.edu">amrita.edu</a></p>
-    </div>
-  </section>
+  </div>
+  <div class="footer">
+    <p>Copyright © 2024 AmritaSeva Co, Ltd. All Rights Reserved. 
+      <br>Design: <a href="https://www.amrita.edu" target="_parent" title="amrita.edu">amrita.edu</a></p>
+  </div>
+</section>
+
+<script>
+  function showPopup(event) {
+    event.preventDefault();
+    alert("Feedback Submitted");
+    // Here you can add additional code to actually submit the form if needed
+    document.getElementById('contact').submit();
+  }
+</script>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/isotope.min.js"></script>
+<script src="assets/js/owl-carousel.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/tabs.js"></script>
+<script src="assets/js/video.js"></script>
+<script src="assets/js/slick-slider.js"></script>
+<script src="assets/js/custom.js"></script>
+
+
 
   
-  
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/tabs.js"></script>
-    <script src="assets/js/video.js"></script>
-    <script src="assets/js/slick-slider.js"></script>
-    <script src="assets/js/custom.js"></script>
     <script>
         
         $('.nav li:first').addClass('active');
